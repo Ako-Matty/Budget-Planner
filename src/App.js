@@ -1,27 +1,48 @@
 // import { useState } from 'react';
 import { useEffect, useState } from 'react';
 import './App.css';
-import { evaluate, chain } from 'mathjs';
+// import { evaluate, chain } from 'mathjs';
 
 const App = () => {
-  const [inputtext, setinputtext] = useState()
+  const [inputtotal, setinputtotal] = useState()
   const [items, setItems] = useState([]);
+  const [numbers, setNumbers] = useState([])
+
+// useEffect(() => {
+//   const total = () => {
+//     let value = 0;
+//     for (let i = 0; i < inputtotal.length; i++) {
+//       console.log(typeof inputtotal[i])
+//       value += parseInt(inputtotal[i])
+//     }
+//     setinputtotal(value)
+//   };
+//   total();
+// }, [inputtotal])
+
 
 useEffect(() => {
+  const total = () => {
+    let value = 1; 
+    if (value === 1) {
+      value += 0;
+    };
+    }
+    total();
+
   
 })
+
+// Item functionality
 
   const Additem = () => {
     console.log(items)
 
     let itemscopy = [...items];
 
-    itemscopy.push(inputtext)
+    itemscopy.push(items)
     setItems(itemscopy)
   }
-
-
-
 
   const DeleteItem = (selectedIndex) => {
 
@@ -33,20 +54,32 @@ useEffect(() => {
   }
 
 
-  const addresult = () => {
-    setItems(chain(items).toString())
-
-
-  }
+// Number functionality
 
   const subtractresult = () => {
 
   }
 
 
-  const calculateBudget = () => {
-    setinputtext(evaluate(inputtext).toString())
+  const calculateBudget = (arr) => {
+    let total = 0;
+    if (Array.isArray(arr))
+    arr.forEach((value) => {
+      total += value;
+    });
+    return total;
+
+    
   };
+
+
+  const addresult = () => {
+    setNumbers([...numbers, Math.floor(Math.random() + 1)])
+
+
+  }
+
+
 
 
 
@@ -55,7 +88,7 @@ useEffect(() => {
     <div className="App">
       <h1>Budget Calculator</h1>
 
-      <button id='additem' onClick={Additem} value={inputtext} onChange={(event) => setinputtext(event.target.value)}>Add Item</button>
+      <button id='additem' onClick={Additem} value={inputtotal} onChange={(event) => setinputtotal(event.target.value)}>Add Item</button>
       <table className="Tablegroup">
         <div className='titles'>
           <th>Date</th><th>Description</th><th>Type</th><th>Amount</th>
@@ -75,16 +108,12 @@ useEffect(() => {
               </select>
             </div>
 
-            <input id='input' type='number' pattern='[0-9]' placeholder='£' onChange={(event) => setinputtext(event.target.value)} ></input>
+            <input id='input' type='number' pattern='[0-9]' placeholder='£' onClick={addresult} onChange={(event) => setinputtotal(event.target.value)} ></input>
             <div className='minus'><button id='minus' onClick={DeleteItem}>X</button></div>
           </div>
         })} </div>
 
-
-
-
       </table>
-
 
       <div>
         {items.map((val, key) => {
@@ -94,10 +123,10 @@ useEffect(() => {
         })}
 
         <div>  <button className='CalculateButton' onClick={() => { calculateBudget() }}>Add Calculations</button>
-        <div>{inputtext}</div></div>
+       
       </div>
 
-
+    <div><h3>{calculateBudget(numbers)}</h3></div></div>
 
     </div>
   );
@@ -105,11 +134,5 @@ useEffect(() => {
 
 
 }
-
-
-
-
-
-
 
 export default App;
