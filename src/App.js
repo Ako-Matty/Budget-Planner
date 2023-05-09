@@ -1,12 +1,14 @@
 // import { useState } from 'react';
 import { useEffect, useState } from 'react';
 import './App.css';
-// import { evaluate, chain } from 'mathjs';
+// import { evaluate } from 'mathjs';
+import { evaluate, chain } from 'mathjs';
 
 const App = () => {
-  const [inputtotal, setinputtotal] = useState()
+  
   const [items, setItems] = useState([]);
   const [numbers, setNumbers] = useState([])
+  const [inputtotal, setinputtotal] = useState()
 
   // useEffect(() => {
   //   const total = () => {
@@ -62,23 +64,21 @@ const App = () => {
   // }
 
 
-  const calculateBudget = (arr) => {
-    let total = 0;
-    if (Array.isArray(arr))
-      arr.forEach((value) => {
-        total += value;
-      });
-    return total;
 
-
-  };
 
   const addresult = (event) => {
     // setNumbers([...numbers, Math.floor(Math.random() + 1)])
     setNumbers(event.target.value)
 
-
   }
+
+
+
+  const calculateBudget = (arr) => {
+    setNumbers([numbers, Math.floor(Math.random() + 1)])
+  };
+
+
 
   return (
     <div className="App">
@@ -104,7 +104,7 @@ const App = () => {
               </select>
             </div>
 
-            <input id='input' type='number' value={numbers} pattern='[0-9]' placeholder='£' onChange={(addresult)} ></input>
+            <input id='input' type='number' pattern='[0-9]' placeholder='£' onChange={(addresult) => { setNumbers(addresult.target.value)}} ></input>
             <div className='minus'><button id='minus' onClick={DeleteItem}>X</button></div>
           </div>
         })} </div>
@@ -113,7 +113,7 @@ const App = () => {
 
       </table>
 
-      <button className='CalculateButton' onClick={() => { calculateBudget() }}>Add Calculations</button>
+      <button className='CalculateButton' onClick={calculateBudget}>Add Calculations</button>
 
       <div><h3>{numbers}</h3></div>
 
