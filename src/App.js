@@ -8,32 +8,32 @@ const App = () => {
   const [items, setItems] = useState([]);
   const [numbers, setNumbers] = useState([])
 
-// useEffect(() => {
-//   const total = () => {
-//     let value = 0;
-//     for (let i = 0; i < inputtotal.length; i++) {
-//       console.log(typeof inputtotal[i])
-//       value += parseInt(inputtotal[i])
-//     }
-//     setinputtotal(value)
-//   };
-//   total();
-// }, [inputtotal])
+  // useEffect(() => {
+  //   const total = () => {
+  //     let value = 0;
+  //     for (let i = 0; i < inputtotal.length; i++) {
+  //       console.log(typeof inputtotal[i])
+  //       value += parseInt(inputtotal[i])
+  //     }
+  //     setinputtotal(value)
+  //   };
+  //   total();
+  // }, [inputtotal])
 
 
-useEffect(() => {
-  const total = () => {
-    let value = 1; 
-    if (value === 1) {
-      value += 0;
-    };
+  useEffect(() => {
+    const total = () => {
+      let value = 1;
+      if (value === 1) {
+        value += 0;
+      };
     }
     total();
 
-  
-})
 
-// Item functionality
+  })
+
+  // Item functionality
 
   const Additem = () => {
     console.log(items)
@@ -54,35 +54,31 @@ useEffect(() => {
   }
 
 
-// Number functionality
+  // Number functionality
 
-  const subtractresult = () => {
+  // const subtractresult = () => {
 
-  }
+
+  // }
 
 
   const calculateBudget = (arr) => {
     let total = 0;
     if (Array.isArray(arr))
-    arr.forEach((value) => {
-      total += value;
-    });
+      arr.forEach((value) => {
+        total += value;
+      });
     return total;
 
-    
+
   };
 
-
-  const addresult = () => {
-    setNumbers([...numbers, Math.floor(Math.random() + 1)])
+  const addresult = (event) => {
+    // setNumbers([...numbers, Math.floor(Math.random() + 1)])
+    setNumbers(event.target.value)
 
 
   }
-
-
-
-
-
 
   return (
     <div className="App">
@@ -104,31 +100,27 @@ useEffect(() => {
             <div className='dropdown'>
               <select className='droplist'>
                 <option onClick={() => addresult}>Income</option>
-                <option onClick={() => subtractresult}>Expense</option>
+                <option>Expense</option>
               </select>
             </div>
 
-            <input id='input' type='number' pattern='[0-9]' placeholder='£' onClick={addresult} onChange={(event) => setinputtotal(event.target.value)} ></input>
+            <input id='input' type='number' value={numbers} pattern='[0-9]' placeholder='£' onChange={(addresult)} ></input>
             <div className='minus'><button id='minus' onClick={DeleteItem}>X</button></div>
           </div>
         })} </div>
 
+        
+
       </table>
 
-      <div>
-        {items.map((val, key) => {
+      <button className='CalculateButton' onClick={() => { calculateBudget() }}>Add Calculations</button>
 
-          return <div onClick={() => { calculateBudget(key) }}>{val}</div>
-
-        })}
-
-        <div>  <button className='CalculateButton' onClick={() => { calculateBudget() }}>Add Calculations</button>
-       
-      </div>
-
-    <div><h3>{calculateBudget(numbers)}</h3></div></div>
+      <div><h3>{numbers}</h3></div>
 
     </div>
+
+
+
   );
 
 
